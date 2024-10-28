@@ -1,5 +1,3 @@
-name: Database Management
-
 on:
   workflow_dispatch:
     inputs:
@@ -11,6 +9,9 @@ on:
           - migrate
           - seed
           - rollback
+          - drop
+          - create # New option for creating the database
+          - reset # New option for resetting the database
 
 jobs:
   manage-database:
@@ -41,4 +42,10 @@ jobs:
             npx sequelize-cli db:seed:all
           elif [ "${{ github.event.inputs.action }}" == "rollback" ]; then
             npx sequelize-cli db:migrate:undo
+          elif [ "${{ github.event.inputs.action }}" == "drop" ]; then
+            npx sequelize-cli db:drop
+          elif [ "${{ github.event.inputs.action }}" == "create" ]; then
+            npx sequelize-cli db:create
+          elif [ "${{ github.event.inputs.action }}" == "reset" ]; then
+            npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate
           fi
