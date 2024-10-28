@@ -32,11 +32,11 @@ jobs:
 
       - name: Run Database Command
         env:
-          NODE_ENV: production
+          NODE_ENV: ${{ secrets.NODE_ENV }}
           MYSQL_HOST: ${{ secrets.MYSQL_PROD_HOST }}
           MYSQL_USERNAME: ${{ secrets.MYSQL_PROD_USERNAME }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PROD_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_PROD_DATABASE }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         run: |
           if [ "${{ github.event.inputs.action }}" == "migrate" ]; then
             npx sequelize-cli db:migrate
