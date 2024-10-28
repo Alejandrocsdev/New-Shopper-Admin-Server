@@ -1,3 +1,5 @@
+name: Database Management
+
 on:
   workflow_dispatch:
     inputs:
@@ -10,8 +12,8 @@ on:
           - seed
           - rollback
           - drop
-          - create # New option for creating the database
-          - reset # New option for resetting the database
+          - create
+          - reset
 
 jobs:
   manage-database:
