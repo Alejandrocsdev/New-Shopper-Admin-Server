@@ -1,6 +1,8 @@
-const isProduction = process.env.NODE_ENV === 'production'
+const frontUrl =
+  process.env.NODE_ENV === 'production'
+    ? process.env.FRONT_PROD_BASE_URL
+    : process.env.FRONT_DEV_BASE_URL
 
-const backUrl = isProduction ? process.env.BACK_PROD_BASE_URL + '/api' : process.env.BACK_DEV_BASE_URL + '/api'
-const frontUrl = isProduction ? process.env.FRONT_PROD_BASE_URL : process.env.FRONT_DEV_BASE_URL
+const renderUrl = process.env.RENDER_BASE_URL
 
-module.exports = { backUrl, frontUrl }
+module.exports = { frontUrl, renderUrl }

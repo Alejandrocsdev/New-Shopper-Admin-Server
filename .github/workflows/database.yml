@@ -1,0 +1,44 @@
+name: Database Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Select database action'
+        required: true
+        default: 'migrate'
+        options:
+          - migrate
+          - seed
+          - rollback
+
+jobs:
+  manage-database:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Database Command
+        env:
+          NODE_ENV: production
+          MYSQL_HOST: ${{ secrets.MYSQL_PROD_HOST }}
+          MYSQL_USERNAME: ${{ secrets.MYSQL_PROD_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PROD_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_PROD_DATABASE }}
+        run: |
+          if [ "${{ github.event.inputs.action }}" == "migrate" ]; then
+            npx sequelize-cli db:migrate
+          elif [ "${{ github.event.inputs.action }}" == "seed" ]; then
+            npx sequelize-cli db:seed:all
+          elif [ "${{ github.event.inputs.action }}" == "rollback" ]; then
+            npx sequelize-cli db:migrate:undo
+          fi

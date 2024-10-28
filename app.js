@@ -11,9 +11,9 @@ const path = require('path')
 // 引用 CORS 中間件
 const cors = require('cors')
 // 引用前端網域
-const { frontUrl } = require('./utils')
+const { frontUrl, renderUrl } = require('./utils')
 // 允許來源
-const allowedOrigins = [frontUrl, 'http://localhost:5180']
+const allowedOrigins = [frontUrl, renderUrl]
 // 設定 CORS 的選項，允許來自特定來源的請求，並且允許攜帶憑證
 const corsOptions = {
   origin: function (origin, callback) {

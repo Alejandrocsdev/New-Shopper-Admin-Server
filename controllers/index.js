@@ -1,6 +1,3 @@
-const userController = require('./user')
-const authController = require('./auth')
-const verifController = require('./verif')
-const notifController = require('./notif')
+const envVarController = require('./envVar')
 
-module.exports = { authController, userController, verifController, notifController }
+module.exports = { envVarController }
